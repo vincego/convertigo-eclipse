@@ -28,19 +28,19 @@ import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import com.twinsoft.convertigo.beans.core.MobileDevice;
+import com.twinsoft.convertigo.beans.core.MobileApplication;
 import com.twinsoft.convertigo.eclipse.ConvertigoPlugin;
 import com.twinsoft.convertigo.eclipse.views.projectexplorer.ProjectExplorerView;
 import com.twinsoft.convertigo.eclipse.views.projectexplorer.model.TreeObject;
 import com.twinsoft.convertigo.engine.EnginePropertiesManager;
-import com.twinsoft.convertigo.engine.util.CachedIntrospector;
 
-public class LaunchMobileDeviceProjectAction extends MyAbstractAction {
+public class LaunchMobileApplicationProjectAction extends MyAbstractAction {
 
-	public LaunchMobileDeviceProjectAction() {
+	public LaunchMobileApplicationProjectAction() {
 		super();
 	}
 
+	@Override
 	public void run() {
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
@@ -53,13 +53,13 @@ public class LaunchMobileDeviceProjectAction extends MyAbstractAction {
     			TreeObject treeObject = explorerView.getFirstSelectedTreeObject();
     			Object databaseObject = treeObject.getObject();
 
-    			if ((databaseObject != null) && (databaseObject instanceof MobileDevice)) {
-    				MobileDevice mobileDevice = (MobileDevice)treeObject.getObject();
-    				String displayName = CachedIntrospector.getBeanInfo(mobileDevice.getClass()).getBeanDescriptor().getDisplayName();
+    			if ((databaseObject != null) && (databaseObject instanceof MobileApplication)) {
+    				MobileApplication mobileApplication = (MobileApplication) databaseObject;
+    				
     				// Test plateform
     				Program.launch(
     						EnginePropertiesManager.PropertyName.APPLICATION_SERVER_CONVERTIGO_URL.getDefaultValue()+"/project.html#" 
-    								+ mobileDevice.getProject() + "?device=" + displayName.replaceAll(" ", ""));
+    								+ mobileApplication.getProject() + "?device=web");
     			}
     		}
         	

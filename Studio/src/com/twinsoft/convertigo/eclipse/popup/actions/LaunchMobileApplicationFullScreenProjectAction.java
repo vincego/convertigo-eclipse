@@ -28,18 +28,19 @@ import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import com.twinsoft.convertigo.beans.core.MobileDevice;
+import com.twinsoft.convertigo.beans.core.MobileApplication;
 import com.twinsoft.convertigo.eclipse.ConvertigoPlugin;
 import com.twinsoft.convertigo.eclipse.views.projectexplorer.ProjectExplorerView;
 import com.twinsoft.convertigo.eclipse.views.projectexplorer.model.TreeObject;
 import com.twinsoft.convertigo.engine.EnginePropertiesManager;
 
-public class LaunchMobileDeviceFullScreenProjectAction extends MyAbstractAction {
+public class LaunchMobileApplicationFullScreenProjectAction extends MyAbstractAction {
 
-	public LaunchMobileDeviceFullScreenProjectAction() {
+	public LaunchMobileApplicationFullScreenProjectAction() {
 		super();
 	}
 
+	@Override
 	public void run() {
 		Display display = Display.getDefault();
 		Cursor waitCursor = new Cursor(display, SWT.CURSOR_WAIT);		
@@ -52,20 +53,20 @@ public class LaunchMobileDeviceFullScreenProjectAction extends MyAbstractAction 
     			TreeObject treeObject = explorerView.getFirstSelectedTreeObject();
     			Object databaseObject = treeObject.getObject();
 
-    			if ((databaseObject != null) && (databaseObject instanceof MobileDevice)) {
-    				MobileDevice mobileDevice = (MobileDevice)treeObject.getObject();
+    			if ((databaseObject != null) && (databaseObject instanceof MobileApplication)) {
+    				MobileApplication mobileApplication = (MobileApplication) databaseObject;
     				Program.launch(
     						EnginePropertiesManager.PropertyName.APPLICATION_SERVER_CONVERTIGO_URL.getDefaultValue() 
     								+ "/projects/" 
-    								+ mobileDevice.getProject() + "/" 
-    								+ mobileDevice.getResourcesPath() 
+    								+ mobileApplication.getProject().getName() + "/" 
+    								+ mobileApplication.getResourceFolder() + "/"
     								+ "index.html");
     			}
     		}
         	
         }
         catch (Throwable e) {
-        	ConvertigoPlugin.logException(e, "Unable to launch the mobile device selected project!");
+        	ConvertigoPlugin.logException(e, "Unable to launch the mobile application selected!");
         }
         finally {
 			shell.setCursor(null);

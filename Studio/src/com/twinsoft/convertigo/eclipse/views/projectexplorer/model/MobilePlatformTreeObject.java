@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  *
- * $URL: http://sourceus/svn/convertigo/CEMS_opensource/trunk/Studio/src/com/twinsoft/convertigo/eclipse/views/projectexplorer/MobileDeviceTreeObject.java $
- * $Author: fabienb $
- * $Revision: 28379 $
- * $Date: 2011-09-27 11:38:59 +0200 (mar., 27 sept. 2011) $
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  */
 
 package com.twinsoft.convertigo.eclipse.views.projectexplorer.model;
@@ -26,29 +26,45 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.Viewer;
 
-import com.twinsoft.convertigo.beans.core.MobileApplication;
+import com.twinsoft.convertigo.beans.core.MobilePlatform;
 import com.twinsoft.convertigo.eclipse.ConvertigoPlugin;
 import com.twinsoft.convertigo.eclipse.views.projectexplorer.TreeParent;
 
-public class MobileApplicationTreeObject extends DatabaseObjectTreeObject {
+public class MobilePlatformTreeObject extends DatabaseObjectTreeObject {
 
-	public MobileApplicationTreeObject(Viewer viewer, MobileApplication object) {
+	public MobilePlatformTreeObject(Viewer viewer, MobilePlatform object) {
 		super(viewer, object);
 	}
 
-	public MobileApplicationTreeObject(Viewer viewer, MobileApplication object, boolean inherited) {
+	public MobilePlatformTreeObject(Viewer viewer, MobilePlatform object, boolean inherited) {
 		super(viewer, object, inherited);
 	}
 
 	@Override
-	public MobileApplication getObject() {
-		return (MobileApplication) super.getObject();
+	public MobilePlatform getObject() {
+		return (MobilePlatform) super.getObject();
+	}
+
+	@Override
+	public boolean testAttribute(Object target, String name, String value) {
+		return super.testAttribute(target, name, value);
 	}
 
 	@Override
 	public void setParent(TreeParent parent) {
 		super.setParent(parent);
-		refreshResourceFolder();
+		if (parent != null) {
+			refreshResourceFolder();
+		}
+	}
+
+	@Override
+	public boolean rename(String newName, boolean bDialog) {
+		boolean renamed = super.rename(newName, bDialog);
+		if (renamed) {
+			refreshResourceFolder();
+		}
+		return renamed;
 	}
 	
 	private void refreshResourceFolder() {

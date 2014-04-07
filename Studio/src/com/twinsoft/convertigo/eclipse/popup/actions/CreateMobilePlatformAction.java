@@ -20,30 +20,12 @@
  * $Date$
  */
 
-package com.twinsoft.convertigo.eclipse.views.projectexplorer.model;
+package com.twinsoft.convertigo.eclipse.popup.actions;
 
-import org.eclipse.jface.viewers.Viewer;
+public class CreateMobilePlatformAction extends DatabaseObjectCreateAction {
 
-import com.twinsoft.convertigo.beans.core.MobileDevice;
-
-public class MobileDeviceTreeObject extends DatabaseObjectTreeObject {
-
-	public MobileDeviceTreeObject(Viewer viewer, MobileDevice object) {
-		super(viewer, object);
+	public CreateMobilePlatformAction() {
+		super("com.twinsoft.convertigo.beans.core.MobilePlatform");
 	}
 
-	public MobileDeviceTreeObject(Viewer viewer, MobileDevice object, boolean inherited) {
-		super(viewer, object, inherited);
-	}
-
-	@Override
-	public MobileDevice getObject() {
-		return (MobileDevice)super.getObject();
-	}
-
-	@Override
-	public boolean testAttribute(Object target, String name, String value) {
-		return super.testAttribute(target, name, value);
-	}
-	
 }
