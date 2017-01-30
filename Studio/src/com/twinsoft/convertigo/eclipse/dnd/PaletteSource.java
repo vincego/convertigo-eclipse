@@ -14,17 +14,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  *
- * $URL: $
- * $Author: $
- * $Revision: $
- * $Date: $
+ * $URL: svn://devus.twinsoft.fr/convertigo/CEMS_opensource/trunk/Studio/src/com/twinsoft/convertigo/eclipse/dnd/StepSource.java $
+ * $Author: fabienb $
+ * $Revision: 28379 $
+ * $Date: 2011-09-27 11:38:59 +0200 (mar., 27 sept. 2011) $
  */
 
-package com.twinsoft.convertigo.eclipse.popup.actions;
+package com.twinsoft.convertigo.eclipse.dnd;
 
-public class CreateMobilePageComponentAction extends DatabaseObjectCreateAction {
-
-	public CreateMobilePageComponentAction() {
-		super("com.twinsoft.convertigo.beans.mobile.components.PageComponent");
+public class PaletteSource {
+	private String xmlData = null;
+	
+	public PaletteSource(String xmlData) {
+		this.xmlData = xmlData;
+	}
+	
+	public String getXmlData() {
+		return xmlData;
 	}
 }
