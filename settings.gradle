@@ -1,0 +1,4 @@
+include 'convertigo-eclipse-jxbrowser-win32'
+include 'convertigo-eclipse-plugin'
+
+rootProject.name = 'convertigo-eclipse'

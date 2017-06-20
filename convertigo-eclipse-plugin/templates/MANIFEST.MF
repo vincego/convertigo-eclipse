@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: C-EMS studio plugin
+Bundle-SymbolicName: com.twinsoft.convertigo.studio; singleton:=true
+Bundle-Version: 7.5.0.qualifier
+Eclipse-BundleShape: dir
+Bundle-Activator: com.twinsoft.convertigo.eclipse.ConvertigoPlugin
+Bundle-Vendor: Convertigo
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.swt,
+ org.eclipse.ui,
+ org.eclipse.ui.console,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views,
+ org.eclipse.wst.jsdt.ui,
+ org.eclipse.wst.jsdt.core,
+ org.eclipse.wst.sse.core,
+ org.eclipse.wst.sse.ui,
+ org.eclipse.wst.xml.ui
+Bundle-ClassPath: bin,
+ icons/,
+ tomcat/webapps/convertigo/WEB-INF/classes/,
+ lib/convertigo-eclipse.jar
