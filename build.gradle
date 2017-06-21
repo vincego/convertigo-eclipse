@@ -1,3 +1,15 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath "com.monochromeroad.gradle-plugins:gradle-aws-s3-sync:0.10"
+	}
+}
+
+import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
+
 allprojects {
 	apply plugin: 'java'
 	version '7.5.0-beta'
@@ -18,15 +30,11 @@ allprojects {
 		from configurations.runtime
 	}
 	
-	task syncConf {
+	task syncAll(dependsOn: [':convertigo-eclipse-plugin:syncWar', 'syncLibs']) {
 		doLast {
 			if (file('templates').exists()) {
 				def classpath = file('templates/classpath').text
 				def manifest = file('templates/MANIFEST.MF').text
-				fileTree('lib-webapp').each { f ->
-					manifest += ',\n lib-webapp/' + f.name
-					classpath += '\n\t<classpathentry kind="lib" path="lib-webapp/' + f.name + '"/>'
-				}
 				fileTree('lib').each { f ->
 					manifest += ',\n lib/' + f.name
 					classpath += '\n\t<classpathentry kind="lib" path="lib/' + f.name + '"/>'
@@ -37,9 +45,7 @@ allprojects {
 		}
 	}
 	
-	task syncAll(dependsOn: [':convertigo-eclipse-plugin:syncWar', 'syncLibs', 'syncConf'])
-	
-	[syncAll, syncConf, syncLibs].each { t-> t.group = 'convertigo' }
+	[syncAll, syncLibs].each { t-> t.group = 'convertigo' }
 }
 
 project(':convertigo-eclipse-jxbrowser-win32') {
@@ -60,21 +66,54 @@ project(':convertigo-eclipse-plugin') {
 		runtime 'org.apache.tomcat.embed:tomcat-embed-core:7.0.72'
 		runtime 'org.apache.tomcat.embed:tomcat-embed-logging-log4j:7.0.72'
 		runtime 'org.apache.tomcat:tomcat-dbcp:7.0.72'
-		runtime 'org.apache.axis2:axis2-adb:1.6.2', { exclude module: 'servlet-api'}
+		runtime 'org.apache.axis2:axis2-adb:1.6.2@jar'
 	}
 	
-	task unzipWar(type: Copy) {
+	task unzipWarLib(type: Copy, dependsOn: 'syncLibs') {
 		from zipTree(configurations.war[0])
-		into file('tomcat/webapps/convertigo')
+		include 'WEB-INF/lib/**'
+		into 'lib'
+		eachFile { f ->
+			f.path = f.path.replaceFirst('WEB-INF/lib', '')
+		}
+		includeEmptyDirs false
 	}
 	
-	task syncWar(dependsOn: unzipWar) {
-		doLast {
-			def dest = file('lib-webapp')
-			delete dest
-			file('tomcat/webapps/convertigo/WEB-INF/lib').renameTo(dest)
-		}
+	task unzipWarNoLib(type: Copy) {
+		from zipTree(configurations.war[0])
+		exclude 'WEB-INF/lib/**'
+		into 'tomcat/webapps/convertigo'
 	}
+	
+	task syncWar(dependsOn: [unzipWarLib, unzipWarNoLib])
 	
 	syncWar.group = syncAll.group
 }
+
+project(':convertigo-eclipse-repository') {
+	task zipStudio64(type: Zip, dependsOn: ':buildStudio') {
+		from 'target/products/com.convertigo.studio/win32/win32/x86_64/'
+		archiveName 'convertigo-studio-win64-' + version + '.zip'
+		destinationDir file('target/upload')
+	}
+	
+	task publish(type: S3Sync, dependsOn: 'zipStudio64') {		
+		accessKey project.properties['c8o.build.ak']
+		secretKey project.properties['c8o.build.sk']
+		
+		from 'target/upload/'
+		into 'convertigo-download/build/' + version
+	}
+	publish.group = 'publishing'
+}
+
+task buildStudio(type: Exec, dependsOn: 'syncAll') {
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+		commandLine 'cmd', '/c', 'mvn'
+	} else {
+		commandLine 'mvn'
+	}
+	args 'clean', 'install'
+}
+buildStudio.onlyIf { !file('convertigo-eclipse-repository/target/products').exists() }
+buildStudio.group = 'build'

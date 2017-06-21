@@ -6,7 +6,6 @@
 .metadata
 bin/
 lib/
-lib-webapp/
 target/
 tmp/
 *.tmp
@@ -102,4 +101,6 @@ gradle-app.setting
 # End of https://www.gitignore.io/api/java,gradle,eclipse
 /gradle.properties
 
+/convertigo-eclipse-jxbrowser-win32/META-INF
+/convertigo-eclipse-plugin/META-INF
 /convertigo-eclipse-plugin/tomcat/webapps/convertigo

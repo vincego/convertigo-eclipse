@@ -1,0 +1,30 @@
+sudo: required
+services:
+  - docker
+git:
+  depth: 5
+language: generic
+env:
+  global:
+    - CACHE_DOCKER=$HOME/.cache/docker
+    - CACHE_DOCKER_C8O=$CACHE_DOCKER/convertigo
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.cache/wrapper/
+    - $HOME/.m2/
+    - $CACHE_DOCKER
+before_install:
+  - if [ -f ${CACHE_DOCKER_C8O} ]; then gunzip -c ${CACHE_DOCKER_C8O} | docker load; fi
+install:
+  - mkdir -p $CACHE_DOCKER
+  - docker pull convertigo/docker-build:latest
+  - if [ ! -f ${CACHE_DOCKER_C8O} ]; then docker save convertigo/docker-build:latest | gzip > ${CACHE_DOCKER_C8O}; fi
+before_script:
+  - docker run --rm -v $PWD:/mnt -v $HOME:/root -w /mnt convertigo/docker-build:latest git lfs pull
+script:
+  - docker run --rm -v $PWD:/mnt -v $HOME:/root -w /mnt convertigo/docker-build:latest ./gradlew $GRADLE_ARGS --refresh-dependencies publish
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
