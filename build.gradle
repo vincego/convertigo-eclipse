@@ -8,9 +8,13 @@ buildscript {
 	}
 }
 
+//plugins {
+//	id "com.dorongold.task-tree" version "1.3"
+//}
+
 import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
 
-allprojects {
+subprojects {
 	apply plugin: 'java'
 	version '7.5.0-beta'
 	
@@ -30,7 +34,7 @@ allprojects {
 		from configurations.runtime
 	}
 	
-	task syncAll(dependsOn: [':convertigo-eclipse-plugin:syncWar', 'syncLibs']) {
+	task syncAll(dependsOn: 'syncLibs') {
 		doLast {
 			if (file('templates').exists()) {
 				def classpath = file('templates/classpath').text
@@ -44,8 +48,6 @@ allprojects {
 			}
 		}
 	}
-	
-	[syncAll, syncLibs].each { t-> t.group = 'convertigo' }
 }
 
 project(':convertigo-eclipse-jxbrowser-win32') {
@@ -87,7 +89,7 @@ project(':convertigo-eclipse-plugin') {
 	
 	task syncWar(dependsOn: [unzipWarLib, unzipWarNoLib])
 	
-	syncWar.group = syncAll.group
+	tasks['syncAll'].dependsOn += 'syncWar'
 }
 
 project(':convertigo-eclipse-repository') {
@@ -107,6 +109,8 @@ project(':convertigo-eclipse-repository') {
 	publish.group = 'publishing'
 }
 
+task syncAll(dependsOn: subprojects.collect { it.tasks['syncAll'] })
+
 task buildStudio(type: Exec, dependsOn: 'syncAll') {
 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
 		commandLine 'cmd', '/c', 'mvn'
@@ -117,3 +121,9 @@ task buildStudio(type: Exec, dependsOn: 'syncAll') {
 }
 buildStudio.onlyIf { !file('convertigo-eclipse-repository/target/products').exists() }
 buildStudio.group = 'build'
+
+allprojects.each { p ->
+	['syncAll', 'syncLibs', 'syncWar'].each { n ->
+		try { p.tasks[n].group = 'convertigo' } catch (all) {}
+	}
+}

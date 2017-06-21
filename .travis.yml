@@ -17,8 +17,7 @@ before_script:
   - docker pull convertigo/docker-build:latest
   - eval $DOCKER_RUN git lfs pull
 script:
-  - eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies syncAll
-  - eval $DOCKER_RUN ./gradlew $GRADLE_ARGS publish
+  - eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies publish | grep -v -e '^[[:space:]]*$'
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
