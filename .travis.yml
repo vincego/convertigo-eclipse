@@ -1,23 +1,24 @@
 sudo: required
 services:
-  - docker
+- docker
 git:
   depth: 5
 language: generic
 env:
   global:
-    - DOCKER_RUN="docker run --rm -v $PWD:/mnt -v $HOME:/root -w /mnt convertigo/docker-build:latest"
+  - DOCKER_RUN="docker run --rm -v $PWD:/mnt -v $HOME:/root -w /mnt convertigo/docker-build:latest"
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.cache/wrapper/
-    - $HOME/.m2/
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.cache/wrapper/
+  - $HOME/.m2/
+install:
+- docker pull convertigo/docker-build:latest
 before_script:
-  - docker pull convertigo/docker-build:latest
-  - eval $DOCKER_RUN git lfs pull
+- eval $DOCKER_RUN git lfs pull
 script:
-  - eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies publish | grep -v -e '^[[:space:]]*$'
+- eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies publish | grep -v -e '^[[:space:]]*$'
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
