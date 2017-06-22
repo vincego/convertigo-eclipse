@@ -3,6 +3,7 @@ services:
 - docker
 git:
   depth: 5
+  lfs_skip_smudge: true
 language: generic
 env:
   global:
