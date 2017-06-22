@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: CemsStudioJxBrowser_mac
+Bundle-SymbolicName: com.twinsoft.convertigo.studio.jxbrowser.mac;singleton:=true
+Bundle-Version: 7.5.0.qualifier
+Fragment-Host: com.twinsoft.convertigo.studio
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Eclipse-PlatformFilter: (& (osgi.ws=cocoa) (osgi.os=macosx) (osgi.arch=x86_64))
+Bundle-Vendor: Convertigo
+Bundle-ClassPath: bin

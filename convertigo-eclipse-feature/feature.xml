@@ -561,7 +561,7 @@ THE CONTRACT IS SUBJECT TO FRENCH LAW. ANY LITIGATION RELATED TO THE AGREEMENT, 
          install-size="0"
          version="7.5.0.qualifier"
          fragment="true"/>
-<!--
+
    <plugin
          id="com.twinsoft.convertigo.studio.jxbrowser.mac"
          os="macosx"
@@ -581,5 +581,5 @@ THE CONTRACT IS SUBJECT TO FRENCH LAW. ANY LITIGATION RELATED TO THE AGREEMENT, 
          install-size="0"
          version="7.5.0.qualifier"
          fragment="true"/>
--->
+
 </feature>

@@ -50,7 +50,19 @@ subprojects {
 	}
 }
 
-project(':convertigo-eclipse-jxbrowser-win32') {
+project(':convertigo-eclipse-jxbrowser-linux64') {
+	dependencies {
+		runtime 'com.teamdev.jxbrowser:jxbrowser-linux64:[6,)', { exclude module: 'jxbrowser'}
+	}
+}
+
+project(':convertigo-eclipse-jxbrowser-mac') {
+	dependencies {
+		runtime 'com.teamdev.jxbrowser:jxbrowser-mac:[6,)', { exclude module: 'jxbrowser'}
+	}
+}
+
+project(':convertigo-eclipse-jxbrowser-win') {
 	dependencies {
 		runtime 'com.teamdev.jxbrowser:jxbrowser-win:[6,)', { exclude module: 'jxbrowser'}
 	}
@@ -93,13 +105,27 @@ project(':convertigo-eclipse-plugin') {
 }
 
 project(':convertigo-eclipse-repository') {
-	task zipStudio64(type: Zip, dependsOn: ':buildStudio') {
+	task zipStudioLinux64(type: Tar, dependsOn: ':buildStudio') {
+		from 'target/products/com.convertigo.studio/linux/gtk/x86_64/'
+		compression = Compression.GZIP
+		archiveName 'convertigo-studio-linux64-' + version + '.tar.gz'
+		destinationDir file('target/upload')
+	}
+	
+	task zipStudioMac(type: Tar, dependsOn: ':buildStudio') {
+		from 'target/products/com.convertigo.studio/macosx/cocoa/x86_64/'
+		compression = Compression.GZIP
+		archiveName 'convertigo-studio-mac-' + version + '.tar.gz'
+		destinationDir file('target/upload')
+	}
+	
+	task zipStudioWin64(type: Zip, dependsOn: ':buildStudio') {
 		from 'target/products/com.convertigo.studio/win32/win32/x86_64/'
 		archiveName 'convertigo-studio-win64-' + version + '.zip'
 		destinationDir file('target/upload')
 	}
 	
-	task publish(type: S3Sync, dependsOn: 'zipStudio64') {		
+	task publish(type: S3Sync, dependsOn: ['zipStudioLinux64', 'zipStudioMac', 'zipStudioWin64']) {		
 		accessKey project.properties['c8o.build.ak']
 		secretKey project.properties['c8o.build.sk']
 		

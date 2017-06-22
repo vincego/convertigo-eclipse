@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CemsStudioJxBrowser_win32
-Bundle-SymbolicName: com.twinsoft.convertigo.studio.jxbrowser.win32;singleton:=true
+Bundle-Name: CemsStudioJxBrowser_win
+Bundle-SymbolicName: com.twinsoft.convertigo.studio.jxbrowser.win;singleton:=true
 Bundle-Version: 7.5.0.qualifier
 Fragment-Host: com.twinsoft.convertigo.studio
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
