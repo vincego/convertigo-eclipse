@@ -35,6 +35,14 @@ Contributors:
 						<linux>tar.gz</linux>
 						<macosx>tar.gz</macosx>
 					</formats>
+					<products>
+						<product>
+							<id>com.convertigo.studio</id>
+							<rootFolders>
+								<macosx>ConvertigoStudio.app</macosx>
+							</rootFolders>
+						</product>
+					</products>
 				</configuration>
 				<executions>
 					<execution>
