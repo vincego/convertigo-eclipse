@@ -19,7 +19,7 @@ install:
 before_script:
 - eval $DOCKER_RUN git lfs pull
 script:
-- eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies publish | grep -v -e '^[[:space:]]*$'
+- eval $DOCKER_RUN ./gradlew $GRADLE_ARGS --refresh-dependencies publish | grep -v -e '^[[:space:]]*$' -e 'Comparing'
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
