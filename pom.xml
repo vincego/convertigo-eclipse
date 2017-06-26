@@ -42,6 +42,7 @@ mvn clean install
 		<module>convertigo-eclipse-plugin</module>
 		<module>convertigo-eclipse-product</module>
 		<module>convertigo-eclipse-repository</module>
+		<module>convertigo-eclipse-xulrunner-win32</module>
 		<module>eclipse-neon</module>
 	</modules>
 
@@ -65,11 +66,11 @@ mvn clean install
 							<ws>win32</ws>
 							<arch>x86_64</arch>
 						</environment>
-<!-- 						<environment> -->
-<!-- 							<os>win32</os> -->
-<!-- 							<ws>win32</ws> -->
-<!-- 							<arch>x86</arch> -->
-<!-- 						</environment> -->
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>

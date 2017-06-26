@@ -541,7 +541,7 @@ THE CONTRACT IS SUBJECT TO FRENCH LAW. ANY LITIGATION RELATED TO THE AGREEMENT, 
          download-size="0"
          install-size="0"
          version="7.5.0.qualifier"/>
-<!--
+
    <plugin
          id="com.twinsoft.convertigo.studio.xulrunner.win32_win32_x86"
          os="win32"
@@ -551,7 +551,7 @@ THE CONTRACT IS SUBJECT TO FRENCH LAW. ANY LITIGATION RELATED TO THE AGREEMENT, 
          install-size="0"
          version="7.5.0.qualifier"
          fragment="true"/>
--->
+
    <plugin
          id="com.twinsoft.convertigo.studio.jxbrowser.win32"
          os="win32"

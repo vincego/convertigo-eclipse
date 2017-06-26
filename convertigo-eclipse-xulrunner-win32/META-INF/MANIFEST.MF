@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: convertigo-eclipse-xulrunner-win32
+Bundle-SymbolicName: com.twinsoft.convertigo.studio.xulrunner.win32_win32_x86;singleton:=true
+Bundle-Version: 7.5.0.qualifier
+Bundle-Vendor: Convertigo
+Fragment-Host: com.twinsoft.convertigo.studio
+Eclipse-BundleShape: dir
+Eclipse-PlatformFilter: (& (osgi.ws=win32) (osgi.os=win32) (osgi.arch=x86))
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CemsStudioJxBrowser_mac
+Bundle-Name: convertigo-eclipse-jxbrowser-mac
 Bundle-SymbolicName: com.twinsoft.convertigo.studio.jxbrowser.mac;singleton:=true
 Bundle-Version: 7.5.0.qualifier
 Fragment-Host: com.twinsoft.convertigo.studio

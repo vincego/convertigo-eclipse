@@ -125,7 +125,15 @@ project(':convertigo-eclipse-repository') {
 		destinationDir file('target/upload')
 	}
 	
-	task publish(type: S3Sync, dependsOn: ['zipStudioLinux64', 'zipStudioMac', 'zipStudioWin64']) {		
+	task zipStudioWin32(type: Zip, dependsOn: ':buildStudio') {
+		from 'target/products/com.convertigo.studio/win32/win32/x86/'
+		archiveName 'convertigo-studio-win32-' + version + '.zip'
+		destinationDir file('target/upload')
+	}
+	
+	task zipStudioAll(dependsOn: ['zipStudioLinux64', 'zipStudioMac', 'zipStudioWin64', 'zipStudioWin32'])
+	
+	task publish(type: S3Sync, dependsOn: 'zipStudioAll') {		
 		accessKey project.properties['c8o.build.ak']
 		secretKey project.properties['c8o.build.sk']
 		
@@ -133,6 +141,23 @@ project(':convertigo-eclipse-repository') {
 		into 'convertigo-download/build/' + version
 	}
 	publish.group = 'publishing'
+}
+
+project(':convertigo-eclipse-xulrunner-win32') {
+	configurations {
+		xul
+	}
+	
+	dependencies {
+		xul 'com.convertigo.packages:xulrunner-linux32:1.9.0.17-patched3'
+	}
+	
+	task untarXulrunner(type: Copy) {
+		from tarTree(resources.gzip(configurations.xul[0]))
+		into 'xulrunner'
+	}
+	
+	tasks['syncAll'].dependsOn += 'untarXulrunner'
 }
 
 task syncAll(dependsOn: subprojects.collect { it.tasks['syncAll'] })

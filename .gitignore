@@ -103,3 +103,5 @@ gradle-app.setting
 
 /convertigo-eclipse-plugin/tomcat/webapps/convertigo
 /workspace/
+
+/convertigo-eclipse-xulrunner-win32/xulrunner
