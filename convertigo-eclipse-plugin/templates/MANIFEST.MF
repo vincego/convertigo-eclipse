@@ -6,6 +6,7 @@ Bundle-Version: 7.5.0.qualifier
 Eclipse-BundleShape: dir
 Bundle-Activator: com.twinsoft.convertigo.eclipse.ConvertigoPlugin
 Bundle-Vendor: Convertigo
+Export-Package: org.mozilla.xpcom
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.core.resources,

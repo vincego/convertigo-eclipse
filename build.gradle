@@ -93,7 +93,7 @@ project(':convertigo-eclipse-plugin') {
 		includeEmptyDirs false
 	}
 	
-	task unzipWarNoLib(type: Copy) {
+	task unzipWarNoLib(type: Sync) {
 		from zipTree(configurations.war[0])
 		exclude 'WEB-INF/lib/**'
 		into 'tomcat/webapps/convertigo'
@@ -149,7 +149,7 @@ project(':convertigo-eclipse-xulrunner-win32') {
 	}
 	
 	dependencies {
-		xul 'com.convertigo.packages:xulrunner-linux32:1.9.0.17-patched3'
+		xul 'com.convertigo.packages:xulrunner-win32:1.9.0.17-patched3'
 	}
 	
 	task untarXulrunner(type: Copy) {
