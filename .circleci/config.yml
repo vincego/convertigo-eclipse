@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+     - image: convertigo/docker-build:latest
+    working_directory: /mnt
+    environment:
+     - GIT_LFS_SKIP_SMUDGE: 1
+     - MAVEN_OPTS: -Xmx2800m
+    steps:
+     - checkout
+     - run:
+         name: GIT LFS pull
+         command: git lfs pull
+     - run:
+         name: Gradle build
+         command: "./gradlew $GRADLE_ARGS --parallel --refresh-dependencies publish | grep -v -e '^[[:space:]]*$' -e 'Comparing'"

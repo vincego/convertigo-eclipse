@@ -553,7 +553,7 @@ THE CONTRACT IS SUBJECT TO FRENCH LAW. ANY LITIGATION RELATED TO THE AGREEMENT, 
          fragment="true"/>
 
    <plugin
-         id="com.twinsoft.convertigo.studio.jxbrowser.win32"
+         id="com.twinsoft.convertigo.studio.jxbrowser.win"
          os="win32"
          ws="win32"
          arch="x86,x86_64"
