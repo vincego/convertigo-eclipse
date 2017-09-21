@@ -52,19 +52,19 @@ subprojects {
 
 project(':convertigo-eclipse-jxbrowser-linux64') {
 	dependencies {
-		runtime 'com.teamdev.jxbrowser:jxbrowser-linux64:6.14.1', { exclude module: 'jxbrowser'}
+		runtime 'com.teamdev.jxbrowser:jxbrowser-linux64:6.15', { exclude module: 'jxbrowser'}
 	}
 }
 
 project(':convertigo-eclipse-jxbrowser-mac') {
 	dependencies {
-		runtime 'com.teamdev.jxbrowser:jxbrowser-mac:6.14.1', { exclude module: 'jxbrowser'}
+		runtime 'com.teamdev.jxbrowser:jxbrowser-mac:6.15', { exclude module: 'jxbrowser'}
 	}
 }
 
 project(':convertigo-eclipse-jxbrowser-win') {
 	dependencies {
-		runtime 'com.teamdev.jxbrowser:jxbrowser-win:6.14.1', { exclude module: 'jxbrowser'}
+		runtime 'com.teamdev.jxbrowser:jxbrowser-win:6.15', { exclude module: 'jxbrowser'}
 	}
 }
 
@@ -76,7 +76,7 @@ project(':convertigo-eclipse-plugin') {
 	dependencies {
 		war 'com.convertigo.webapp:convertigo:' + version
 		runtime 'com.convertigo.lib:jxbrowser-license:2017.04.26'
-		runtime 'com.teamdev.jxbrowser:jxbrowser:6.14.1'
+		runtime 'com.teamdev.jxbrowser:jxbrowser:6.15'
 		runtime 'org.apache.tomcat.embed:tomcat-embed-core:7.0.72'
 		runtime 'org.apache.tomcat.embed:tomcat-embed-logging-log4j:7.0.72'
 		runtime 'org.apache.tomcat:tomcat-dbcp:7.0.72'
