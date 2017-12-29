@@ -16,7 +16,7 @@ import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
 
 subprojects {
 	apply plugin: 'java'
-	version '7.5.0-beta'
+	version '7.5.0'
 	
 	repositories {
 		mavenLocal()
