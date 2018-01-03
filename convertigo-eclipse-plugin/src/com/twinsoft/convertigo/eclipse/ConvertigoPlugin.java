@@ -545,8 +545,8 @@ public class ConvertigoPlugin extends AbstractUIPlugin implements IStartup {
 					closeButton.setLayoutData(gridData);
 					
 
-					int w = 768;
-					int h = 1024;
+					int w = 640;
+					int h = 480;
 					try {
 						// mod jmc 31/07/2013
 						
@@ -908,7 +908,10 @@ public class ConvertigoPlugin extends AbstractUIPlugin implements IStartup {
 						!Engine.theApp.databaseObjectsManager.existsProject(name.substring(0, name.length() - 4))) {
 					try {
 						Project project = Engine.theApp.databaseObjectsManager.deployProject(tpl.getPath(), false);
-						getProjectExplorerView().importProjectTreeObject(project.getName());
+						ProjectExplorerView pew = getProjectExplorerView();
+						if (pew != null) {
+							pew.importProjectTreeObject(project.getName());
+						}
 					} catch (Exception e) {
 						Engine.logEngine.error("Failed to deploy " + tpl.getName(), e);
 					}
