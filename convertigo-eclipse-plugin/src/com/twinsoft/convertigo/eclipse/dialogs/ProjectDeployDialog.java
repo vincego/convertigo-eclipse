@@ -318,7 +318,7 @@ public class ProjectDeployDialog extends MyAbstractDialog implements Runnable {
             
 			setTextLabel("Authenticating to the Convertigo server");
 			
-			if (convertigoServer.indexOf('/') == -1) convertigoServer += "/convertigo";
+			//if (convertigoServer.indexOf('/') == -1) convertigoServer += "/convertigo";
 			
 			RemoteAdmin remoteAdmin = new RemoteAdmin(convertigoServer, isHttps, trustAllCertificates);
 	
